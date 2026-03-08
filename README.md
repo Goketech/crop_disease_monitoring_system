@@ -1,7 +1,16 @@
-Crop Disease Monitoring System
-Overview
+=======
+## Crop Disease Early Warning System
+
+Backend: Flask (Python)  
+Frontend: React (JavaScript)
 
 This project is a Crop Disease Monitoring System that helps farmers detect crop diseases using a web application. Users can upload images of their crops, and the system identifies potential diseases and provides recommendations.
+
+This project implements the architecture and database design described in the technical presentation:
+
+- Flask REST API with JWT auth, image upload, ML diagnosis hook, SMS + email notifications
+- MySQL database with 7 core tables (`users`, `crop_reports`, `ml_diagnoses`, `agronomist_feedback`, `reports`, `sms_notifications`, `sessions`)
+- React frontend with Farmer portal and Agronomist dashboard shells
 
 Features
 
@@ -14,14 +23,6 @@ Farmer registration and login
 REST API for backend communication
 
 Automated API testing using pytest
-
-Tech Stack
-
-Backend: Python, Flask
-
-Machine Learning / Image Processing: OpenCV / TensorFlow (if used)
-
-Database: SQLite / MySQL
 
 Testing: pytest, requests
 
@@ -81,12 +82,25 @@ Edge case testing
 
 Automated testing using pytest
 
-Contributors
+### Development quick start
 
-Abatoni Mugabo Lea – Testing & deploying
+#### Backend
 
+```bash
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+cp .env.example .env  # then fill in values
+flask run --app app
+```
 
+#### Frontend
 
-License
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-This project is for educational purposes.
+See `backend/app/config.py` and `frontend/README.md` for more details.
