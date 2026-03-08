@@ -2,66 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <title>Crop Disease Early Warning System</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AgriWarn - Login</title>
-    <link rel="stylesheet" href="./css/index.css" />
   </head>
   <body>
-    <div class="login-container">
-      <div class="header">
-        <div class="logo">Logo Here</div>
-        <div style="font-size: 12px; color: gray">Login/Create account</div>
-      </div>
-
-      <h2 style="text-align: center; font-size: 20px">Login/Create account</h2>
-
-      <form id="loginForm">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" placeholder="Enter email" required />
-        </div>
-
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Enter password"
-            required
-          />
-          <input type="checkbox" id="showPassword" /> Show Password
-        </div>
-
-        <div class="form-group">
-          <label for="phone">Phone Number</label>
-          <input
-            type="tel"
-            id="phone"
-            placeholder="+250..."
-            pattern="^\+250[0-9]{9}$"
-            title="Must start with +250 followed by 9 digits"
-          />
-        </div>
-
-        <div
-          class="form-group"
-          style="background-color: #f0f0f0; padding: 10px; border-radius: 4px"
-        >
-          <label for="role">Choose Role:</label>
-          <select id="role" required>
-            <option value="" disabled selected>Select a role...</option>
-            <option value="farmer">Farmer</option>
-            <option value="agronomist">Agronomist</option>
-          </select>
-        </div>
-
-        <button type="submit" class="btn-login">Login</button>
-      </form>
-
-    
-      <div id="greeting" style="text-align:center; margin-top:20px; font-size:18px; font-weight:bold;"></div>
-    </div>
-
-    <script src="./js/index.js"></script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
