@@ -31,5 +31,23 @@ def _run_dummy_inference(report_id: int):
     db.session.commit()
 
 
+@ml_bp.get("/diagnose/<int:report_id>")
+@jwt_required()
+def trigger_diagnosis(report_id: int):
+    report = CropReport.query.get_or_404(report_id)
 
+    thread = threading.Thread(target=_run_dummy_inference, args=(report.report_id,))
+    thread.daemon = True
+    thread.start()
+
+    return (
+        jsonify(
+            {
+                "success": True,
+                "message": "ML diagnosis started",
+                "data": {"report_id": report.report_id},
+            }
+        ),
+        202,
+    )
 
