@@ -1,35 +1,38 @@
-# Face Recognition Attendance System
+Crop Disease Monitoring System
+Overview
 
-## Overview
+This project is a Crop Disease Monitoring System that helps farmers detect crop diseases using a web application. Users can upload images of their crops, and the system identifies potential diseases and provides recommendations.
 
-This project is a **Face Recognition Attendance System** that automatically marks student attendance using facial recognition technology.
+Features
 
-The system detects and recognizes faces from images or a camera feed and records attendance in the database.
+Upload crop images for disease detection
 
-## Features
+Automatic disease diagnosis
 
-* Face detection and recognition
-* Automatic attendance marking
-* Student registration
-* Image upload for recognition
-* REST API for backend communication
-* Automated API testing using pytest
+Farmer registration and login
 
-## Tech Stack
+REST API for backend communication
 
-* **Backend:** Python, Flask
-* **Face Recognition:** OpenCV
-* **Database:** SQLite / MySQL
-* **Testing:** pytest, requests
-* **Version Control:** Git & GitHub
+Automated API testing using pytest
 
-## Project Structure
+Tech Stack
 
-```
-project-folder
+Backend: Python, Flask
+
+Machine Learning / Image Processing: OpenCV / TensorFlow (if used)
+
+Database: SQLite / MySQL
+
+Testing: pytest, requests
+
+Version Control: Git & GitHub
+
+Project Structure
+crop_disease_monitoring_system
 │
 ├── app.py
 ├── requirements.txt
+├── models.py
 │
 ├── tests
 │   ├── test_api.py
@@ -37,68 +40,53 @@ project-folder
 │   └── test_upload.py
 │
 └── README.md
-```
+Installation
 
-## Installation
+Clone the repository:
 
-1. Clone the repository
+git clone https://github.com/Goketech/crop_disease_monitoring_system.git
 
-```
-git clone
-https://github.com/Goketech/crop_disease_monitoring_system.git
-```
+Navigate into the project folder:
 
-2. Navigate into the project folder
+cd crop_disease_monitoring_system
 
-```
-cd your-repository crop_disease_monitoring_system
-```
+Install dependencies:
 
-3. Install dependencies
-
-```
 pip install -r requirements.txt
-```
-
-## Running the Application
+Running the Application
 
 Start the backend server:
 
-```
 python app.py
-```
 
 The server will run at:
 
-```
 http://localhost:5000
-```
+Running Tests
 
-## Running Tests
+Install test dependencies (if separate):
 
-Install test dependencies:
-
-```
-pip install -r requirements-test.txt
-```
+pip install pytest requests
 
 Run tests:
 
-```
 python -m pytest
-```
+Test Cases Implemented
 
-## Test Cases Implemented
+API endpoint testing
 
-* API endpoint testing
-* File upload testing
-* Edge case testing
-* Automated testing using pytest
+Image upload testing
 
-## Contributors
+Edge case testing
 
-* Abatoni Mugabo Lea – Backend Development & Testing
+Automated testing using pytest
 
-## License
+Contributors
+
+Abatoni Mugabo Lea – Testing & deploying
+
+
+
+License
 
 This project is for educational purposes.
