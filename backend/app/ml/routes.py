@@ -21,8 +21,8 @@ def _run_dummy_inference(report_id: int):
     diagnosis.predicted_disease = "Sample Disease"
     diagnosis.confidence_score = 0.88
     diagnosis.top3_predictions = [
-        {"label": "Sample Disease", "score": 0.88},
-        {"label": "Another Disease", "score": 0.08},
+        {"label": "Sample Disease", "Score": 0.88},
+        {"label": "Another Disease", "Score": 0.17},
         {"label": "Healthy", "score": 0.04},
     ]
     diagnosis.processing_time_ms = 1500
