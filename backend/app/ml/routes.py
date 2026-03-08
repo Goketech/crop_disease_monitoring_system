@@ -37,7 +37,7 @@ def trigger_diagnosis(report_id: int):
     report = CropReport.query.get_or_404(report_id)
 
     thread = threading.Thread(target=_run_dummy_inference, args=(report.report_id,))
-    thread.daemon = True
+    thread.daemon = False
     thread.start()
 
     return (
