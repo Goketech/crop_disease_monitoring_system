@@ -1,0 +1,30 @@
+/* Footer Styles */
+.main-footer {
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #2c3e50;
+  color: #ffffff;
+  text-align: center;
+  padding: 25px 20px;
+  margin-top: auto;
+}
+/*
+.main-footer {
+  background-color: #2c3e50;
+  color: #ffffff;
+  text-align: center;
+  padding: 25px 20px;
+  margin-top: auto;
+}
+*/
+
+.footer-content p {
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+.footer-subtext {
+  font-size: 14px;
+  color: #aeb6bf;
+  font-weight: normal;
+}

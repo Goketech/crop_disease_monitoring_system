@@ -1,0 +1,103 @@
+/* src/components/HomePage.css */
+
+.home-container {
+  font-family: "Inter", sans-serif;
+}
+
+/* 1. HERO STYLES */
+.hero-section {
+  /* High Resolution Placeholder: A Rwandan coffee or tea plantation at sunrise */
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)),
+    url("../images/rwanda-tea-plantation.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 85vh; /* Occupies almost the full screen */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.hero-content {
+  background-color: rgba(255, 255, 255, 0.85); /* Clean white card overlay */
+  padding: 50px 70px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 800px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.hero-headline {
+  color: #4caf50; /* Green theme color */
+  font-weight: bold;
+  font-size: 40px;
+  margin-top: 0;
+  margin-bottom: 15px;
+  line-height: 1.2;
+}
+
+.hero-description {
+  color: black;
+  font-size: 18px;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+/* Big Center CTA Button */
+.cta-button {
+  display: block;
+  width: fit-content;
+  margin: 0 auto;
+  padding: 16px 40px;
+  background-color: #4caf50;
+  color: white;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #45a049;
+}
+
+/* 2. HOW-IT-WORKS STYLES */
+.how-it-works {
+  padding: 50px;
+  background-color: white;
+  text-align: center;
+}
+
+.section-title {
+  color: gray;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+.steps-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.step-card {
+  background-color: #f9f9f9;
+  padding: 30px;
+  border-radius: 8px;
+  width: 300px;
+  text-align: center;
+}
+
+.step-number {
+  font-size: 48px;
+  font-weight: bold;
+  color: #ddd;
+}
+
+.step-card h3 {
+  color: #333;
+}

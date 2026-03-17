@@ -1,0 +1,54 @@
+/* Header Styles */
+.main-header {
+  display: flex;
+  justify-content: space-between; /* Pushes logo left, nav right */
+  align-items: center;
+  padding: 15px 40px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+/*
+.logo-img {
+  height: 80px; /* Doubled the size! You can change this number to 90px or 100px if you want it even bigger 
+  object-fit: contain;  Keeps the aspect ratio perfect 
+  margin-left: -10px;  Optional: Pulls the logo slightly to the left if the image file has too much invisible whitespace on the edges 
+}
+*/
+.logo-img {
+  /* 1. The Shelf: We keep the height reasonable so the header stays thin and beautiful */
+  height: 50px;
+
+  /* 2. The Magnifying Glass: This zooms the image in by 60% without stretching the header! */
+  transform: scale(1.6);
+
+  /* 3. The Anchor: This tells the zoom to stick to the left wall, so it doesn't accidentally zoom into the middle of the screen */
+  transform-origin: left center;
+
+  object-fit: contain;
+}
+.logo-text {
+  color: #4caf50;
+  font-weight: bold;
+  font-size: 20px;
+  margin-left: 26px;
+}
+
+.navbar {
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-item {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.navbar-item.highlight {
+  color: #4caf50;
+}
