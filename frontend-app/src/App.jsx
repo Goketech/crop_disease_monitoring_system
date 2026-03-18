@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import LoginPage from "./components/LoginPage";
@@ -26,17 +27,22 @@ function About() {
 }
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <Router>
       <div className="app-wrapper">
-        <Header />
+        <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         {/* 3. The invisible spring! This pushes the footer down. */}
         <main className="main-content">
           <Routes>
             <Route path="/" element={<HomePage />} />
             {/*<Route path="/" element={<Home />} />*/}
             <Route path="/about" element={<About />} />
-            <Route path="/login" element={<LoginPage />} />
+            {/*<Route path="/login" element={<LoginPage />} />*/}
+            <Route
+              path="/login"
+              element={<LoginPage setIsLoggedIn={setIsLoggedIn} />}
+            />
             <Route path="/farmer" element={<FarmerUpload />} />
           </Routes>
         </main>

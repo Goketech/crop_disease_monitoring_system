@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function LoginPage() {
+function LoginPage({ setIsLoggedIn }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [phone, setPhone] = useState("");
@@ -21,6 +21,7 @@ function LoginPage() {
     // 3. The Navigation to farmer page
     // When my teamate finishes API, password check will come here. Right now, I just I assume login is successfull.
     if (role === "farmer") {
+      setIsLoggedIn(true);
       navigate("/farmer");
     } else if (role === "agronomist") {
       alert("We haven't built the Agronomist Dashboard yet!");
