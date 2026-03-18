@@ -12,13 +12,6 @@ import "./CSS/Footer.css";
 import "./App.css";
 import "./index.css";
 import "./CSS/FarmerUpload.css";
-/*function Home() {
-  return (
-    <h1 style={{ textAlign: "center", padding: "50px" }}>
-      Welcome to CropGuard Rwanda
-    </h1>
-  );
-}*/
 
 function About() {
   return (
@@ -32,13 +25,13 @@ function App() {
     <Router>
       <div className="app-wrapper">
         <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
-        {/* 3. The invisible spring! This pushes the footer down. */}
+
         <main className="main-content">
           <Routes>
             <Route path="/" element={<HomePage />} />
-            {/*<Route path="/" element={<Home />} />*/}
+
             <Route path="/about" element={<About />} />
-            {/*<Route path="/login" element={<LoginPage />} />*/}
+
             <Route
               path="/login"
               element={<LoginPage setIsLoggedIn={setIsLoggedIn} />}

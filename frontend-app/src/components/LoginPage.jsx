@@ -17,15 +17,12 @@ function LoginPage({ setIsLoggedIn }) {
       return;
     }
 
-    //alert(`Success! Logging in ${email} as a ${role} with phone ${phone}`);
-    // 3. The Navigation to farmer page
-    // When my teamate finishes API, password check will come here. Right now, I just I assume login is successfull.
     if (role === "farmer") {
       setIsLoggedIn(true);
       navigate("/farmer");
     } else if (role === "agronomist") {
       alert("We haven't built the Agronomist Dashboard yet!");
-      // Later this will be: navigate("/dashboard");
+      // Later this area will be: navigate("/dashboard");
     }
   };
 

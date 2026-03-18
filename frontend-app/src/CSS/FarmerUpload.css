@@ -63,7 +63,7 @@
 .analyzing-text {
   text-align: center;
   font-weight: bold;
-  color: #f39c12; /* A warning orange color */
+  color: #f39c12;
   padding: 12px;
   background-color: #fff3e0;
   border-radius: 4px;
@@ -72,7 +72,7 @@
 .diagnosis-box {
   margin-top: 25px;
   padding: 20px;
-  background-color: #e8f5e9; /* A soft success green */
+  background-color: #e8f5e9;
   border-left: 5px solid #4caf50;
   border-radius: 4px;
 }
@@ -91,18 +91,18 @@
 /* Farmer dashboard sidebar style*/
 /* 1. The Flexbox Container */
 .dashboard-container {
-  display: flex; /* This is the magic word that puts them side-by-side! */
-  min-height: 85vh; /* Ensures the dashboard stretches to the footer */
+  display: flex;
+  min-height: 85vh;
   background-color: #f5f5f5;
 }
 
 /* 2. The Sidebar Styling */
 .dashboard-sidebar {
-  width: 260px; /* Fixed width so it never shrinks */
+  width: 260px;
   background-color: #ffffff;
   border-right: 1px solid #e0e0e0;
   padding: 30px 20px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.03); /* A soft shadow on the right edge */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.03);
 }
 
 .sidebar-title {
@@ -111,12 +111,12 @@
   margin-top: 0;
   margin-bottom: 25px;
   padding-bottom: 10px;
-  border-bottom: 2px solid #4caf50; /* A nice green underline */
+  border-bottom: 2px solid #4caf50;
 }
 
 /* 3. The Menu Buttons */
 .sidebar-menu {
-  list-style: none; /* Removes the ugly bullet points */
+  list-style: none;
   padding: 0;
   margin: 0;
 }
@@ -131,12 +131,12 @@
   transition: all 0.2s ease;
   display: flex;
   align-items: center;
-  gap: 12px; /* Adds perfect spacing between the emoji and the text */
+  gap: 12px;
 }
 
 /* The Hover Effect */
 .sidebar-menu li:hover {
-  background-color: #e8f5e9; /* Light green hover state */
+  background-color: #e8f5e9;
   color: #2e7d32;
 }
 
@@ -149,15 +149,15 @@
 
 /* 4. The Main Content Area */
 .dashboard-content {
-  flex: 1; /* This tells the right side to grow and fill all remaining space */
+  flex: 1;
   padding: 40px;
   display: flex;
-  justify-content: center; /* Centers your upload card perfectly */
-  align-items: flex-start; /* Keeps the card near the top instead of the middle */
-  overflow-y: auto; /* Adds a scrollbar just to the content if it gets too long */
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto;
 }
 
-/* 5. Placeholder Styles for your other tabs */
+/* 5. Placeholder Styles for tabs */
 .tab-placeholder-card {
   background-color: white;
   padding: 50px;

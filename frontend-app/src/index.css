@@ -6,6 +6,6 @@ body,
   width: 100%;
   min-height: 100vh;
   box-sizing: border-box;
-  overflow-x: hidden; /* Prevents the screen from accidentally scrolling sideways */
+  overflow-x: hidden;
   font-family: "Inter", sans-serif;
 }

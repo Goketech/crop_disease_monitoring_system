@@ -1,10 +1,9 @@
-/* Layout Wrapper & The Invisible Spring */
 .app-wrapper {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Forces the app to be at least 100% of the screen height */
+  min-height: 100vh;
 }
 
 .main-content {
-  flex: 1; /* THE SPRING: This tells the middle section to grow and consume all empty space! */
+  flex: 1;
 }

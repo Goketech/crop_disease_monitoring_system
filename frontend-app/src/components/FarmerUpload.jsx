@@ -1,17 +1,13 @@
 import { useState } from "react";
 
 function FarmerUpload() {
-  // 1. THE TAB STATE (The Filing Cabinet Switch)
-  // We start by looking at the "upload" folder by default
   const [activeTab, setActiveTab] = useState("upload");
 
-  // --- YOUR EXISTING UPLOAD STATE ---
   const [selectedImage, setSelectedImage] = useState(null);
   const [description, setDescription] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [aiDiagnosis, setAiDiagnosis] = useState(null);
 
-  // --- YOUR EXISTING FUNCTIONS ---
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -38,11 +34,9 @@ function FarmerUpload() {
 
   return (
     <div className="dashboard-container">
-      {/* 2. THE SIDEBAR (The Tab Buttons) */}
       <aside className="dashboard-sidebar">
         <h3 className="sidebar-title">Farmer Menu</h3>
         <ul className="sidebar-menu">
-          {/* We use an onClick to change the activeTab state! */}
           <li
             className={activeTab === "upload" ? "active-tab" : ""}
             onClick={() => setActiveTab("upload")}
@@ -70,9 +64,7 @@ function FarmerUpload() {
         </ul>
       </aside>
 
-      {/* 3. THE MAIN CONTENT AREA (Conditional Rendering) */}
       <main className="dashboard-content">
-        {/* IF activeTab is "upload", draw your original form! */}
         {activeTab === "upload" && (
           <div className="upload-card">
             <h2 className="upload-title">Report a Crop Issue</h2>
@@ -133,8 +125,6 @@ function FarmerUpload() {
             </form>
           </div>
         )}
-
-        {/* IF activeTab is "history", draw this placeholder */}
         {activeTab === "history" && (
           <div className="tab-placeholder-card">
             <h2>Your Past Scans</h2>
@@ -142,7 +132,6 @@ function FarmerUpload() {
           </div>
         )}
 
-        {/* IF activeTab is "reports", draw this placeholder */}
         {activeTab === "reports" && (
           <div className="tab-placeholder-card">
             <h2>Agronomist Messages</h2>
@@ -152,7 +141,7 @@ function FarmerUpload() {
             </p>
           </div>
         )}
-        {/* IF activeTab is "ai-reports", draw this placeholder */}
+
         {activeTab === "ai-reports" && (
           <div className="tab-placeholder-card">
             <h2>🤖 AI Diagnosis Reports</h2>
