@@ -7,7 +7,7 @@ Demo Video: https://www.loom.com/share/d93efee783154df39d5f7ccf87826d1f
 
 ## ✨ Key Features
 
-- **🧠 Multimodal AI Diagnosis:** Real-time analysis of crop diseases using Gemini 2.0 Flash with detailed treatment plans and confidence scoring.
+- **🧠 Multimodal AI Diagnosis:** Real-time analysis of crop diseases using **Gemini 2.5 Flash** (vision + structured JSON) with detailed treatment plans and confidence scoring.
 - **👥 Role-Aware Dashboards:** Dedicated interfaces for **Farmers** (Upload/History), **Agronomists** (Expert Review Queue), and **Admins** (Global Analytics).
 - **📱 Real-time SMS Alerts:** Automated notifications sent directly to farmers' mobile phones via an integrated SMS gateway.
 - **🔍 Global Case Management:** Advanced search and filtering system for tracking agricultural cases across the platform.
@@ -42,7 +42,19 @@ Create a `.env.local` file in the root directory and add the following:
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 GOOGLE_AI_API_KEY=your_gemini_api_key
+
+# Optional: SMS (InfiniReach)
+INFINIREACH_API_KEY=
+INFINIREACH_DEVICE_ID=
+INFINIREACH_SENDER_NUMBER=
+
+# Optional: local seed script only (bypasses RLS) — never expose in the browser
+SUPABASE_SERVICE_ROLE_KEY=
 ```
+
+### Database migrations
+
+For an **existing** Supabase project, run `supabase/migrations/20260329120000_rls_and_schema_alignment.sql` in the SQL Editor to add missing columns (`treatment_plan`, `phone_number`, `sms_notifications_enabled`) and tighten row level security. New projects can apply `supabase/schema.sql` as a baseline (adjust the auth trigger syntax if your Postgres version requires it).
 
 ### 3. Run Development Server
 ```bash

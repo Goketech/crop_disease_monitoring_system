@@ -1,5 +1,5 @@
 -- ==========================================
--- PlantMD Supabase Initial Schema
+-- PlantMD Supabase Schema (fresh install)
 -- ==========================================
 
 -- 1. Create Custom Types
@@ -16,28 +16,29 @@ CREATE TABLE public.profiles (
   avatar_url text,
   farm_name text,
   location text,
+  phone_number text,
+  sms_notifications_enabled boolean DEFAULT true,
   created_at timestamptz DEFAULT now()
 );
 
--- Enable RLS for profiles
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 
 -- 3. Create Cases Table
 CREATE TABLE public.cases (
-  id text PRIMARY KEY, -- e.g. CAS-001
+  id text PRIMARY KEY,
   farmer_id uuid REFERENCES public.profiles(id) NOT NULL,
   crop text NOT NULL,
   disease text,
   confidence numeric,
   urgency urgency_level DEFAULT 'Medium',
-  status case_status DEFAULT 'Analyzed',
+  status case_status DEFAULT 'Submitted',
   location text,
   image_urls text[] DEFAULT '{}',
   farmer_notes text,
+  treatment_plan text,
   created_at timestamptz DEFAULT now()
 );
 
--- Enable RLS for cases
 ALTER TABLE public.cases ENABLE ROW LEVEL SECURITY;
 
 -- 4. Create Expert Reviews Table
@@ -52,65 +53,87 @@ CREATE TABLE public.expert_reviews (
   created_at timestamptz DEFAULT now()
 );
 
--- Enable RLS for expert_reviews
 ALTER TABLE public.expert_reviews ENABLE ROW LEVEL SECURITY;
 
--- 5. Basic RLS Policies (For Development)
--- Note: These policies are permissive for testing. You should restrict them for production.
+-- Role helper (SECURITY DEFINER so role checks stay reliable)
+CREATE OR REPLACE FUNCTION public.is_agronomist_or_admin()
+RETURNS boolean
+LANGUAGE sql
+STABLE
+SECURITY DEFINER
+SET search_path = public
+AS $$
+  SELECT EXISTS (
+    SELECT 1 FROM public.profiles p
+    WHERE p.id = auth.uid()
+      AND p.role IN ('agronomist'::user_role, 'admin'::user_role)
+  );
+$$;
 
--- Profiles: Anyone can view profiles, users can update their own.
-CREATE POLICY "Public profiles are viewable by everyone." 
-  ON public.profiles FOR SELECT USING (true);
-CREATE POLICY "Users can insert their own profile." 
-  ON public.profiles FOR INSERT WITH CHECK (auth.uid() = id);
-CREATE POLICY "Users can update own profile." 
-  ON public.profiles FOR UPDATE USING (auth.uid() = id);
+-- 5. Row Level Security
 
--- Cases: Anyone can view cases, authenticated users can insert/update.
-CREATE POLICY "Cases are viewable by everyone." 
-  ON public.cases FOR SELECT USING (true);
-CREATE POLICY "Authenticated users can insert cases." 
-  ON public.cases FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
-CREATE POLICY "Authenticated users can update cases." 
-  ON public.cases FOR UPDATE USING (auth.uid() IS NOT NULL);
+CREATE POLICY "Profiles readable by authenticated users"
+  ON public.profiles FOR SELECT TO authenticated USING (true);
+CREATE POLICY "Users can insert their own profile."
+  ON public.profiles FOR INSERT TO authenticated WITH CHECK (auth.uid() = id);
+CREATE POLICY "Users can update own profile."
+  ON public.profiles FOR UPDATE TO authenticated USING (auth.uid() = id);
 
--- Expert Reviews: Anyone can view, authenticates users can insert/update.
-CREATE POLICY "Expert reviews viewable by everyone." 
-  ON public.expert_reviews FOR SELECT USING (true);
-CREATE POLICY "Authenticated users can insert reviews." 
-  ON public.expert_reviews FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
-CREATE POLICY "Authenticated users can update reviews." 
-  ON public.expert_reviews FOR UPDATE USING (auth.uid() IS NOT NULL);
+CREATE POLICY "cases_select_scope"
+  ON public.cases FOR SELECT TO authenticated
+  USING (farmer_id = auth.uid() OR public.is_agronomist_or_admin());
+CREATE POLICY "cases_insert_own"
+  ON public.cases FOR INSERT TO authenticated
+  WITH CHECK (farmer_id = auth.uid());
+CREATE POLICY "cases_update_scope"
+  ON public.cases FOR UPDATE TO authenticated
+  USING (farmer_id = auth.uid() OR public.is_agronomist_or_admin())
+  WITH CHECK (farmer_id = auth.uid() OR public.is_agronomist_or_admin());
 
--- 6. Storage Buckets (For Plant Images)
--- Instructions: Create the 'plant-images' bucket in Supabase Dashboard -> Storage
--- Then run the following policies:
+CREATE POLICY "expert_reviews_select_scope"
+  ON public.expert_reviews FOR SELECT TO authenticated
+  USING (
+    EXISTS (
+      SELECT 1 FROM public.cases c
+      WHERE c.id = expert_reviews.case_id
+      AND (c.farmer_id = auth.uid() OR public.is_agronomist_or_admin())
+    )
+  );
+CREATE POLICY "expert_reviews_insert_staff"
+  ON public.expert_reviews FOR INSERT TO authenticated
+  WITH CHECK (public.is_agronomist_or_admin() AND expert_id = auth.uid());
+CREATE POLICY "expert_reviews_update_own"
+  ON public.expert_reviews FOR UPDATE TO authenticated
+  USING (public.is_agronomist_or_admin() AND expert_id = auth.uid())
+  WITH CHECK (public.is_agronomist_or_admin() AND expert_id = auth.uid());
 
--- Ensure public access to the bucket if not already set
--- INSERT INTO storage.buckets (id, name, public) VALUES ('plant-images', 'plant-images', true) ON CONFLICT (id) DO NOTHING;
-
+-- 6. Storage (create bucket in Dashboard if needed)
 CREATE POLICY "Plant images are publicly viewable."
   ON storage.objects FOR SELECT USING (bucket_id = 'plant-images');
 
-CREATE POLICY "Authenticated users can upload plant images."
-  ON storage.objects FOR INSERT WITH CHECK (
-    bucket_id = 'plant-images' AND auth.role() = 'authenticated'
+CREATE POLICY "Users upload plant images to own folder"
+  ON storage.objects FOR INSERT TO authenticated
+  WITH CHECK (
+    bucket_id = 'plant-images'
+    AND split_part(name, '/', 1) = auth.uid()::text
   );
 
-CREATE POLICY "Users can delete their own plant images."
-  ON storage.objects FOR DELETE USING (
-    bucket_id = 'plant-images' AND auth.uid() = owner
+CREATE POLICY "Users delete own plant images in plant-images"
+  ON storage.objects FOR DELETE TO authenticated
+  USING (
+    bucket_id = 'plant-images'
+    AND split_part(name, '/', 1) = auth.uid()::text
   );
 
--- 7. Trigger for new user signup to automatically create a profile
-CREATE OR REPLACE FUNCTION public.handle_new_user() 
+-- 7. New user → profile
+CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS trigger AS $$
 BEGIN
   INSERT INTO public.profiles (id, full_name, email, role)
   VALUES (
-    new.id, 
-    new.raw_user_meta_data->>'full_name', 
-    new.email, 
+    new.id,
+    new.raw_user_meta_data->>'full_name',
+    new.email,
     COALESCE((new.raw_user_meta_data->>'role')::user_role, 'farmer'::user_role)
   );
   RETURN new;

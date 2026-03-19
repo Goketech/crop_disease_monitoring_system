@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Search, Sparkles, UserCheck, Leaf, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { Search, Sparkles, UserCheck, Leaf, CheckCircle2, AlertCircle, Loader2, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -47,7 +47,7 @@ export default function CasesClientModule({
   // Farmer: Analyzed, Pending Review, Reviewed, Resolved (Submitted removed)
   // Agronomist: Reviewed, Resolved (Analyzed, Pending Review, Submitted removed)
   const availableStatuses = isFarmer 
-    ? ["Analyzed", "Pending Review", "Reviewed", "Resolved"]
+    ? ["Submitted", "Analyzed", "Pending Review", "Reviewed", "Resolved"]
     : ["Reviewed", "Resolved"];
 
   const handleStatusUpdate = async (caseId: string, newStatus: string) => {
@@ -172,7 +172,7 @@ export default function CasesClientModule({
                 <tr key={c.id} className="hover:bg-[#fbfcfa] transition-colors group">
                   <td className="px-8 py-7">
                     <Link href={`/cases/${c.id}`} className="font-black text-[#1A5336] hover:text-[#6cdba1] transition-colors tracking-tighter">
-                      #{c.id.split('-')[0].toUpperCase()}
+                      #{c.id.length > 20 ? `${c.id.slice(0, 18)}…` : c.id}
                     </Link>
                   </td>
                   <td className="px-8 py-7">
@@ -198,7 +198,9 @@ export default function CasesClientModule({
                   </td>
                   <td className="px-8 py-7">
                     <div className="flex items-center gap-2">
-                       {c.status === 'Analyzed' ? (
+                       {c.status === 'Submitted' ? (
+                        <Clock className="h-4 w-4 text-amber-600" />
+                      ) : c.status === 'Analyzed' ? (
                         <Sparkles className="h-4 w-4 text-[#6cdba1]" />
                       ) : c.status === 'Pending Review' ? (
                         <AlertCircle className="h-4 w-4 text-orange-500" />
@@ -214,6 +216,16 @@ export default function CasesClientModule({
                   <td className="px-8 py-7 text-right">
                     <div className="flex items-center justify-end gap-3">
                       {/* Contextual Action Buttons - FARMWORKS ONLY FOR RESOLUTION */}
+                      {isFarmer && c.status === 'Submitted' && (
+                        <Button
+                          onClick={() => handleStatusUpdate(c.id, 'Pending Review')}
+                          disabled={isUpdating === c.id}
+                          className="h-10 px-4 rounded-xl bg-[#F59E0B] hover:bg-[#D97706] text-white text-[10px] font-black uppercase tracking-widest shadow-lg shadow-amber-500/20"
+                        >
+                          {isUpdating === c.id ? <Loader2 className="h-3 w-3 animate-spin" /> : "Escalate to expert"}
+                        </Button>
+                      )}
+
                       {isFarmer && c.status === 'Analyzed' && (
                         <div className="flex gap-2">
                           <Button 

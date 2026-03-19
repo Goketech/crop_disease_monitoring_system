@@ -65,8 +65,8 @@ export default function DiagnosePage() {
         imageUrls.push(publicUrl);
       }
 
-      // 3. Generate Case ID
-      const caseId = `CAS-${Math.floor(1000 + Math.random() * 9000)}`;
+      // 3. Generate Case ID (collision-resistant)
+      const caseId = `CAS-${crypto.randomUUID()}`;
 
       // 4. Insert into cases table
       const { error: insertError } = await supabase
@@ -78,7 +78,7 @@ export default function DiagnosePage() {
           farmer_notes: notes,
           image_urls: imageUrls,
           urgency: 'Medium', // Default
-          status: analysisMode === 'ai' ? 'Analyzed' : 'Pending Review'
+          status: analysisMode === 'ai' ? 'Submitted' : 'Pending Review'
         });
 
       if (insertError) throw insertError;
@@ -86,7 +86,12 @@ export default function DiagnosePage() {
       // 5. Trigger AI Analysis if in AI mode
       if (analysisMode === 'ai') {
         const { analyzePlantImage } = await import("@/app/actions/ai-actions");
-        await analyzePlantImage(caseId, imageUrls, crop);
+        const aiResult = await analyzePlantImage(caseId, imageUrls, crop);
+        if (!aiResult.success) {
+          alert(`Analysis could not be completed: ${aiResult.error}. Your case was saved — open it for details or try again later.`);
+        } else if (aiResult.simulated) {
+          alert("Demo mode: GOOGLE_AI_API_KEY is not set. Showing simulated diagnosis.");
+        }
         router.push(`/cases/${caseId}`);
       } else {
         alert("Expert Review Requested! Your submission has been sent to our priority queue.");
@@ -262,6 +267,11 @@ export default function DiagnosePage() {
            </Button>
         </div>
       </Card>
+
+      <p className="text-[11px] text-muted-foreground leading-relaxed max-w-3xl px-1">
+        <strong className="text-foreground">Medical disclaimer:</strong> PlantMD provides decision support only. Always confirm
+        diagnoses with a qualified agronomist and follow local regulations for crop protection products.
+      </p>
 
       {/* Helper Info */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 bg-primary/5 p-8 rounded-[40px] border border-primary/10">
