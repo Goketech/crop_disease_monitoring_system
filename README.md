@@ -1,7 +1,8 @@
 # 🌿 PlantMD: AI-Powered Agricultural Diagnostic SaaS
 
 PlantMD is a premium, high-fidelity digital ecosystem designed to bridge the "Diagnostic Gap" for farmers. Using **Google Gemini 2.0 Generative AI (Vision)**, PlantMD provides instant, expert-level plant pathology analysis while facilitating a professional human-in-the-loop workflow for expert agronomists.
-
+---
+Demo Video: https://www.loom.com/share/d93efee783154df39d5f7ccf87826d1f
 ---
 
 ## ✨ Key Features
