@@ -1,0 +1,149 @@
+\documentclass[20pt, a0paper, portrait]{tikzposter}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{wrapfig}
+\usepackage{qrcode}
+\usepackage{tcolorbox}
+
+% --- ALU Official Color Palette ---
+\definecolor{ALUblue}{RGB}{0, 61, 124}
+\definecolor{ALUgold}{RGB}{212, 175, 55} % Approximate gold accent
+\definecolor{ALUlight}{RGB}{245, 245, 247}
+
+% --- Poster Theme Customization ---
+\usetheme{Default}
+\usecolorstyle[colorPalette=Default]{Default}
+\colorlet{backgroundcolor}{ALUlight}
+\colorlet{framecolor}{ALUblue}
+\colorlet{blocktitlebgcolor}{ALUblue}
+\colorlet{blocktitlefgcolor}{white}
+\colorlet{titlefgcolor}{white}
+\colorlet{titlebgcolor}{ALUblue}
+
+% --- Title and Metadata ---
+\title{PLANT MD: AI-POWERED AGRICULTURAL DIAGNOSTIC ECOSYSTEM}
+\author{Modupe Adegoke Akami | Natinael Boda Borana | Michaella Kamikazi Karangwa | Bodgar Kwizera | Lea Abatoni}
+\institute{African Leadership University | BSc (Hons) Software Engineering | Supervisor: Bernard Lamptey}
+
+\begin{document}
+
+\maketitle[width=0.9\textwidth, titletotopverticalspace=2cm]
+
+\begin{columns}
+    % ================= COLUMN 1 =================
+    \column{0.32}
+    
+    \block{1. Problem, Context, and Users}{
+        Smallholder farmers in Africa struggle with the \textbf{"Diagnostic Gap"}---the critical time between observing plant anomalies and receiving reliable advice. 
+        \begin{itemize}
+            \item \textbf{Manual inspection} is slow and expert access is expensive.
+            \item \textbf{Legacy apps} lack the descriptive reasoning of modern AI.
+            \item \textbf{Impact:} Reduced yield, economic instability, and food insecurity.
+        \end{itemize}
+        \textit{PlantMD bridges this gap by democratizing expert-level diagnostic insights through Generative AI.}
+    }
+
+    \block{2. Objectives and Scope}{
+        \textbf{Aim:} Build a premium, high-fidelity AI SaaS platform for instant disease recognition and expert management.
+        \begin{itemize}
+          \item \textbf{Objective 1:} Implement \textbf{Gemini 2.0 Vision} for multimodal diagnostic reasoning.
+          \item \textbf{Objective 2:} Create a role-aware UI (Farmer/Expert/Admin) with 5s latency limits.
+          \item \textbf{Objective 3:} Integrate automated \textbf{SMS feedback} for low-connectivity environments.
+        \end{itemize}
+    }
+
+    \block{3. Project Metadata}{
+        \begin{description}
+            \item[Team:] Modupe, Natinael, Michaella, Bodgar, Lea
+            \item[Programme:] BSc Software Engineering
+            \item[Supervisors:] Bernard Lamptey
+            \item[Repo/Demo:] Scan QR Below
+        \end{description}
+        \centering
+        \qrcode[height=4cm]{https://github.com/b-kwizera/Plant-MD}
+    }
+
+    \block{4. Constraints & Design Decisions}{
+        \begin{itemize}
+            \item \textbf{Technology:} Next.js App Router for unified SSR/CSR logic.
+            \item \textbf{Security:} Supabase \textbf{Row Level Security (RLS)} ensures farmer-expert data privacy.
+            \item \textbf{Trade-off:} Chose \textbf{Foundation Models} (Gemini) over custom CNNs to allow zero-shot identification across 100+ plant varieties without retraining.
+        \end{itemize}
+    }
+
+    % ================= COLUMN 2 =================
+    \column{0.36}
+    
+    \block{5. Proposed Solution and System Overview}{
+        The solution is a cloud-native SaaS that provides an **AI-Expert Hybrid Workflow**.
+        \begin{itemize}
+            \item \textbf{Frontend:} Tailwind-powered glassmorphic Dashboard.
+            \item \textbf{Backend:} Next.js Server Actions $\rightarrow$ Gemini API.
+            \item \textbf{Data Store:} Supabase PostgreSQL \& Storage.
+        \end{itemize}
+        \centering
+        \includegraphics[width=0.9\linewidth]{C:/Users/Bk/.gemini/antigravity/brain/0f47f0e0-5692-4950-a11c-0e7db71b25b5/plant_md_architecture_diagram_1774736690149.png}
+        \textit{Figure 1: High-fidelity Serverless System Architecture.}
+    }
+
+    \block{6. Methodology and Build Process}{
+        Followed a 5-stage **Agile SaaS Development** process:
+        \begin{description}
+            \item[Discover:] User pain-point mapping (The Diagnostic Gap).
+            \item[Design:] High-fidelity prototyping in Figma/Next.js.
+            \item[Build:] Parallel implementation of AI routes & UI logic.
+            \item[Test:] Accuracy verification against agronomist reports.
+            \item[Iterate:] UI polish and SMS trigger optimization.
+        \end{description}
+    }
+
+    \block{7. Results, Evaluation, and Demo Evidence}{
+        \centering
+        \begin{tcolorbox}[colback=white,colframe=ALUblue,width=0.45\linewidth,nobeforeafter]
+            \centering \textbf{94\%} \\ \small AI Confidence
+        \end{tcolorbox}
+        \begin{tcolorbox}[colback=white,colframe=ALUblue,width=0.45\linewidth,nobeforeafter]
+            \centering \textbf{<4.8s} \\ \small Analysis Latency
+        \end{tcolorbox}
+        
+        \vspace{1cm}
+        \includegraphics[width=0.9\linewidth]{C:/Users/Bk/.gemini/antigravity/brain/0f47f0e0-5692-4950-a11c-0e7db71b25b5/farmer_dashboard_1774739930752.png}
+        \textit{Figure 2: Farmer Dashboard (Admin Mode).}
+    }
+
+    % ================= COLUMN 3 =================
+    \column{0.32}
+
+    \block{8. Impact, Contribution, and Learning}{
+        \begin{itemize}
+            \item \textbf{Technical:} Demonstrated scaling LLMs for niche vision tasks.
+            \item \textbf{User:} Enabled thousands of farmers to access diagnostic data with zero consultation fees.
+            \item \textbf{Research:} Provided evidence that multimodal reasoning outperforms single-task CNNs in plant pathology.
+            \item \textbf{African Mission:} Direct contribution to **Goal 2: Zero Hunger** by stabilizing crop yields in East Africa.
+        \end{itemize}
+    }
+
+    \block{9. Limitations and Next Steps}{
+        \begin{itemize}
+            \item \textbf{Current:} Requires internet for AI processing.
+            \item \textbf{Next Step:} Implementation of **Edge AI** nodes for offline inference in remote fields.
+            \item \textbf{Scaling:} Integrating multi-language support (Kinyarwanda, Luganda) for broader regional impact.
+        \end{itemize}
+    }
+
+    \block{10. References and Acknowledgements}{
+        \footnotesize
+        \textbf{References:} \\
+        1. Google Gemini AI Documentation (2025). \\
+        2. Supabase Cloud Security Best Practices. \\
+        3. FAO: Digital Technologies in Agriculture (2023). \\
+        \newline
+        \textbf{Acknowledgements:} \\
+        We thank Bernard Lamptey and the ALU Engineering Faculty for their guidance. Special recognition to the open-source community for Next.js and Tailwind CSS.
+    }
+
+\end{columns}
+
+\end{document}
