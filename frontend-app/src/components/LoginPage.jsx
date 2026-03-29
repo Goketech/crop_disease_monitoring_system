@@ -7,6 +7,7 @@ function LoginPage({ setIsLoggedIn }) {
   const [phone, setPhone] = useState("");
   const [role, setRole] = useState("farmer");
   const [showPassword, setShowPassword] = useState(false);
+  const [wantsEmailReport, setWantsEmailReport] = useState(false);
   const navigate = useNavigate();
   const handleLogin = (event) => {
     event.preventDefault();
@@ -21,8 +22,8 @@ function LoginPage({ setIsLoggedIn }) {
       setIsLoggedIn(true);
       navigate("/farmer");
     } else if (role === "agronomist") {
-      alert("We haven't built the Agronomist Dashboard yet!");
-      // Later this area will be: navigate("/dashboard");
+      setIsLoggedIn(true);
+      navigate("/agronomist");
     }
   };
 
@@ -85,6 +86,37 @@ function LoginPage({ setIsLoggedIn }) {
               <option value="agronomist">Agronomist</option>
             </select>
           </div>
+          {/*This is to allow farmer to receive monthly email report*/}
+          {role === "farmer" && (
+            <div
+              className="form-group"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "10px",
+                marginTop: "10px",
+              }}
+            >
+              <input
+                type="checkbox"
+                id="emailReport"
+                checked={wantsEmailReport}
+                onChange={(e) => setWantsEmailReport(e.target.checked)}
+                style={{ width: "18px", height: "18px", cursor: "pointer" }}
+              />
+              <label
+                htmlFor="emailReport"
+                style={{
+                  fontSize: "14px",
+                  color: "#555",
+                  cursor: "pointer",
+                  margin: 0,
+                }}
+              >
+                Send me a free monthly crop health report via email
+              </label>
+            </div>
+          )}
 
           <button type="submit" className="submit-button">
             Login / Register

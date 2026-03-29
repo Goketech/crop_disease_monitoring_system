@@ -5,6 +5,7 @@ import LoginPage from "./components/LoginPage";
 import HomePage from "./components/HomePage";
 import Footer from "./components/Footer";
 import FarmerUpload from "./components/FarmerUpload";
+import AgronomistDashboard from "./components/AgronomistDashboard";
 import "./CSS/HomePage.css";
 import "./CSS/LoginPage.css";
 import "./CSS/Header.css";
@@ -12,6 +13,7 @@ import "./CSS/Footer.css";
 import "./App.css";
 import "./index.css";
 import "./CSS/FarmerUpload.css";
+import "./CSS/AgronomistDashboard.css";
 
 function About() {
   return (
@@ -37,6 +39,7 @@ function App() {
               element={<LoginPage setIsLoggedIn={setIsLoggedIn} />}
             />
             <Route path="/farmer" element={<FarmerUpload />} />
+            <Route path="/agronomist" element={<AgronomistDashboard />} />
           </Routes>
         </main>
         <Footer />
